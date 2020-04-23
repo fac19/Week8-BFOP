@@ -4,7 +4,13 @@ const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
 const loggedIn = `
-<button class="log-out">Log Out</button>
+<button id="log-out">Log Out</button>
+<button id="create-post">
+    <a href='/create-post'>
+    Create Post
+    </a>
+    </button>
+
 `;
 
 const loggedOut = `
@@ -25,21 +31,21 @@ const allCode = `
 <ul></ul>
 `;
 
-function home() {
-    writeToNav();
-    writeToWrapper();
+function home({ redirect }) {
+    writeToNav(redirect);
+    writeToWrapper(redirect);
 }
 
-function writeToNav() {
+function writeToNav(redirect) {
     // check auth token and display accordingly
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("access-token");
 
     if (!token) {
-        nav.innerHTML = loggedOut;
+        nav.innerHTML = loggedOut
     } else {
         nav.innerHTML = loggedIn;
         nav.querySelector("#log-out").addEventListener("click", () => {
-            localStorage.removeItem("token");
+            window.localStorage.clear();
             redirect("/");
         });
     }
@@ -53,20 +59,21 @@ function createListItem(code, userId) {
     language.append(code.language);
     const example = document.createElement("p");
     example.append(code.example);
-    if(userId == code.owner_id){
     const deleteButton = document.createElement("button");
-    deleteButton.append('&#128465');
+    deleteButton.append('Delete');
     const editButton = document.createElement("button");
-    editButton.append('&#9998');
-    return li.append(title, language, example, deleteButton, editButton);
+    editButton.append('Edit');
+    if(userId == code.owner_id){
+        li.append(title, language, example, deleteButton, editButton);
+    }else{
+        li.append(title, language, example);
     }
-    li.append(title, language, example);
     return li;
 }
 
-function writeToWrapper() {
+function writeToWrapper(redirect) {
     wrapper.innerHTML = allCode;
-    const userId = localStorage.getItem("user_id");
+    const userId = localStorage.getItem("user-id");
 
     query("/all")
         .then(json => {

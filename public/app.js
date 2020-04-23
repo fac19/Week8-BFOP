@@ -3,9 +3,12 @@ import home from "./routes/home.js"
 import signUp from "./routes/sign-up.js"
 // import logIn from ""
 // import createExample from ""
-// import updateExample from ""
 
 const app = router();
+
+
+// import updateExample from ""
+
 
 app.get("/", home); 
 app.get("/sign-up", signUp); 
