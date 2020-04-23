@@ -3,6 +3,7 @@ import query from "../query.js";
 const wrapper = document.querySelector("#wrapper");
 const nav = document.querySelector("#navigation");
 
+
 const loggedIn = `
 <button id="log-out">Log Out</button>
 <button id="create-post">
@@ -31,17 +32,15 @@ const allCode = `
 <ul></ul>
 `;
 
-function home({ redirect }) {
+function home({redirect}) {    
     writeToNav(redirect);
-    writeToWrapper(redirect);
+    writeToWrapper();
 }
 
 function writeToNav(redirect) {
-    // check auth token and display accordingly
-    const token = localStorage.getItem("access-token");
-
-    if (!token) {
-        nav.innerHTML = loggedOut
+    const token = localStorage.getItem("token");
+    if (token === "undefined" || !token) {
+        nav.innerHTML = loggedOut;
     } else {
         nav.innerHTML = loggedIn;
         nav.querySelector("#log-out").addEventListener("click", () => {
