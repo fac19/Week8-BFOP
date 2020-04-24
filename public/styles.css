@@ -179,6 +179,10 @@ form label {
     height: 15em;
 }
 
+#hello-message {
+    font-size: 1.4rem;
+}
+
 @media screen and (max-width: 900px) {
     body {
         margin: 0;
@@ -222,6 +226,23 @@ form label {
         margin-top: 4em;
     }
 
+<<<<<<< HEAD
+    #hello-message {
+        padding: 2rem;
+        top: 30px;
+    }
+
+    .nav button {
+        position: auto;
+        padding: none;
+        padding: 0;
+        height: auto;
+        background-color: inherit;
+        padding-bottom: 0.25em;
+    }
+    
+=======
+>>>>>>> master
     .link a,
     link a:visited {
         text-decoration: none;
